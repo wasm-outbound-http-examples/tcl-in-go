@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP request for github.com/skx/critical micro-Tcl</title>
+    <script type="text/javascript" src="wasm_exec.js"></script>
+</head>
+<body>
+<h2>HTTP Request from inside WASM using skx/criTiCaL micro-Tcl and custom command</h2>
+
+<p>This example uses custom command in <a href="https://github.com/skx/critical">skx/criTiCaL</a>.</p>
+<p>See the output in browser developer console.</p>
+
+<p>Actual code:</p>
+<pre>
+
+puts [httpget "https://httpbin.org/anything"]
+
+</pre>
+<script type="text/javascript">
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch('main.wasm'), go.importObject).then((result) => {
+        go.run(result.instance);
+    });
+</script>
+<section>
+    <h4>Info</h4>
+    <ul>
+        <li><a href="https://github.com/wasm-outbound-http-examples/tcl-in-go/tree/main/browser-and-deno-critical/">Demo source code</a></li>
+        <li>Versions used on the moment of build:<small>
+            Golang: 1.22.0,
+            criTiCaL: <a href="https://github.com/skx/critical/tree/44b41592cc897cf9f7aaa9e108df76fab848ebdc">44b4159</a>.
+        </small></li>
+    </ul>
+</section>
+<footer><small>Created for (wannabe-awesome) <a href="https://github.com/vasilev/HTTP-request-from-inside-WASM">list</a></small></footer>
+</body>
+</html>
